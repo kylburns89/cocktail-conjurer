@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MixMaster AI - Craft Your Perfect Cocktail",
+  title: "Cocktail Conjurer - Craft Your Perfect Cocktail",
   description: "AI-powered cocktail recipe generator that creates unique drinks based on your preferences and available ingredients.",
 };
 
