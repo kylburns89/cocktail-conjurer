@@ -1,6 +1,6 @@
 import Together from 'together-ai';
 
-if (!process.env.NEXT_PUBLIC_TOGETHER_API_KEY) {
+if (!process.env.TOGETHER_API_KEY) {
   throw new Error("Missing TOGETHER_API_KEY environment variable");
 }
 
