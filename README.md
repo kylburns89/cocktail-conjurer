@@ -1,14 +1,24 @@
 # Cocktail Conjurer 🍸
 
-Your personal AI bartender. Input your ingredients and preferences, and let our AI craft the perfect cocktail recipe just for you.
+An AI-powered cocktail recipe generator that transforms your available ingredients into delightful drink recipes. Whether you're a professional bartender or a home mixologist, Cocktail Conjurer helps you discover new and exciting cocktail combinations tailored to your preferences and available ingredients.
+
+![Cocktail Conjurer](public/wizard-logo.png)
+
+## Overview
+
+Cocktail Conjurer combines the power of artificial intelligence with mixology expertise to create unique, personalized cocktail recipes. Simply input your available ingredients and preferences, and let our AI bartender craft the perfect cocktail recipe just for you. Each recipe comes with its own AI-generated image, providing a beautiful visual representation of your custom cocktail creation.
 
 ## Features
 
 - 🤖 AI-powered cocktail recipe generation
+- 🎨 AI-generated unique cocktail images for each recipe
 - 🧪 Customizable ingredient preferences
 - 🎨 Beautiful, responsive UI with dark/light mode support
 - 📱 Mobile-friendly design
 - ⚡ Real-time recipe generation
+- 🔄 Smart recipe adjustments based on available ingredients
+- 💡 Ingredient substitution suggestions
+- 📝 Detailed preparation instructions
 
 ## Tech Stack
 
@@ -61,8 +71,48 @@ yarn dev
 1. Visit the website
 2. Input your available ingredients
 3. Adjust preferences (optional)
+   - Specify drink strength
+   - Set flavor preferences
+   - Choose serving style
 4. Click "Generate Recipe"
-5. Get your personalized cocktail recipe!
+5. Get your personalized cocktail recipe with a unique AI-generated image!
+
+## Deployment
+
+The application can be deployed to various platforms:
+
+### Vercel (Recommended)
+```bash
+npm install -g vercel
+vercel
+```
+
+### Traditional Hosting
+1. Build the application:
+```bash
+npm run build
+```
+
+2. Start the production server:
+```bash
+npm run start
+```
+
+## Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+Please ensure your PR adheres to the following guidelines:
+- Follow the existing code style
+- Add tests for new features
+- Update documentation as needed
+- Keep commit messages clear and descriptive
 
 ## Building for Production
 
@@ -81,3 +131,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Author
 
 Created by [kylburns89](https://github.com/kylburns89)
+
+## Acknowledgments
+
+- Thanks to Together AI for providing the AI capabilities
+- Thanks to the shadcn/ui team for the beautiful UI components
+- Thanks to the open-source community for their invaluable contributions
