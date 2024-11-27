@@ -2,7 +2,7 @@
 
 An AI-powered cocktail recipe generator that transforms your available ingredients into delightful drink recipes. Whether you're a professional bartender or a home mixologist, Cocktail Conjurer helps you discover new and exciting cocktail combinations tailored to your preferences and available ingredients.
 
-![Cocktail Conjurer](public/wizard-logo.png)
+![wizard-logo](https://github.com/user-attachments/assets/9a4b319f-3e0c-40da-9f55-fdf76127959f)
 
 ## Overview
 
