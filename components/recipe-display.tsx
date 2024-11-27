@@ -1,7 +1,9 @@
-import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { GlassWater, Lightbulb, RefreshCw } from "lucide-react";
+import { Card } from "./ui/card";
+import { ScrollArea } from "./ui/scroll-area";
+import { Button } from "./ui/button";
+import { GlassWater, Lightbulb, RefreshCw, Download } from "lucide-react";
 import Image from "next/image";
+import { useToast } from "./ui/use-toast";
 
 interface Recipe {
   name: string;
@@ -20,6 +22,8 @@ interface RecipeDisplayProps {
 }
 
 export function RecipeDisplay({ recipe }: RecipeDisplayProps) {
+  const { toast } = useToast();
+
   if (!recipe) {
     return (
       <Card className="p-6">
@@ -32,12 +36,39 @@ export function RecipeDisplay({ recipe }: RecipeDisplayProps) {
     );
   }
 
+  const downloadImage = async (imageUrl: string, name: string) => {
+    try {
+      // Create the download URL with the image URL as a query parameter
+      const downloadUrl = `/api/download-image?url=${encodeURIComponent(imageUrl)}`;
+      
+      // Create a link element and trigger the download
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast({
+        title: "Success",
+        description: "Image download started",
+      });
+    } catch (error) {
+      console.error('Error downloading image:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to download image. Please try again.",
+      });
+    }
+  };
+
   return (
     <Card className="p-6">
       <ScrollArea className="h-[600px] pr-4">
         <div className="space-y-6">
           {recipe.imageUrl && (
-            <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
+            <div className="relative w-full h-[300px] rounded-lg overflow-hidden group">
               <Image
                 src={recipe.imageUrl}
                 alt={recipe.name}
@@ -45,6 +76,17 @@ export function RecipeDisplay({ recipe }: RecipeDisplayProps) {
                 className="object-cover"
                 priority
               />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  className="gap-2"
+                  onClick={() => downloadImage(recipe.imageUrl!, recipe.name)}
+                >
+                  <Download className="h-5 w-5" />
+                  Download Full Image
+                </Button>
+              </div>
             </div>
           )}
 

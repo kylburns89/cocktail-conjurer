@@ -67,12 +67,12 @@ The drink should have:
 ${!isMocktail ? `- Strength level: ${strength}/100` : ''}
 - Additional notes: ${notes || "None"}
 
-You must respond with ONLY a valid JSON object in this exact format, with no additional text or explanation:
+You must respond with ONLY a valid JSON object in this exact format, with no additional text or explanation. For instructions, do not include numbers at the start - they will be automatically numbered when displayed:
 {
   "name": "${drinkType} name",
   "description": "Brief backstory or description",
   "ingredients": ["List", "of", "ingredients"],
-  "instructions": ["Step 1", "Step 2", "etc"],
+  "instructions": ["In a shaker, muddle mint leaves", "Add vodka and juice", "etc"],
   "garnish": "Garnish details",
   "glassware": "Recommended glass",
   "tips": ["Preparation tip 1", "Tip 2"],
@@ -82,7 +82,7 @@ You must respond with ONLY a valid JSON object in this exact format, with no add
   const response = await together.chat.completions.create({
     model: 'mistralai/Mixtral-8x7B-Instruct-v0.1',
     messages: [
-      { role: 'system', content: 'You are a skilled bartender. Always respond with valid JSON only.' },
+      { role: 'system', content: 'You are a skilled bartender. Always respond with valid JSON only. For instructions, do not include numbers at the start of each step - they will be automatically numbered when displayed.' },
       { role: 'user', content: prompt }
     ],
     temperature: 0.7,
@@ -110,6 +110,11 @@ You must respond with ONLY a valid JSON object in this exact format, with no add
         throw new Error(`Missing required field: ${field}`);
       }
     }
+
+    // Clean up any instructions that might still have numbers at the start
+    recipe.instructions = recipe.instructions.map((instruction: string) => 
+      instruction.replace(/^\d+\.\s*/, '')
+    );
 
     return recipe;
   } catch (error) {
