@@ -4,13 +4,13 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
-import { Slider } from "@/components/ui/slider";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
-import { Card } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
+import { Button } from "./ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Slider } from "./ui/slider";
+import { Textarea } from "./ui/textarea";
+import { useToast } from "./ui/use-toast";
+import { Card } from "./ui/card";
+import { Switch } from "./ui/switch";
 import { Loader2, Dice6 } from "lucide-react";
 import { RecipeDisplay } from "./recipe-display";
 
@@ -60,6 +60,11 @@ export function CocktailGenerator() {
   async function generateRecipe(values: z.infer<typeof formSchema>, random: boolean = false) {
     setLoading(true);
     try {
+      // If it's a random generation, clear the ingredients field first
+      if (random) {
+        form.setValue("ingredients", "");
+      }
+
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -93,7 +98,10 @@ export function CocktailGenerator() {
   }
 
   const onSubmit = (values: z.infer<typeof formSchema>) => generateRecipe(values, false);
-  const onRollDice = () => generateRecipe(form.getValues(), true);
+  const onRollDice = () => {
+    const values = form.getValues();
+    generateRecipe(values, true);
+  };
 
   return (
     <div className="grid md:grid-cols-2 gap-8">
@@ -212,7 +220,7 @@ export function CocktailGenerator() {
               <Button 
                 type="button" 
                 variant="secondary"
-                onClick={() => onRollDice()}
+                onClick={onRollDice}
                 disabled={loading}
                 className="flex-none gap-2"
               >
